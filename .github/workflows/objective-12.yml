@@ -2,7 +2,7 @@
 
 
 env:
-  region:             "us-east5b"
+  region:             "us-east5"
   project_id:         "${{ secrets.PROJECT_ID }}"
   cluster_name:       "cluster-1"
 
