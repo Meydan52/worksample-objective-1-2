@@ -50,7 +50,7 @@ jobs:
 
       # Clone the repository to GCP
       - name: Clone repository
-        run: git clone ${{ envs.repository }}
+        run: git clone ${{ env.repository }}
 
 
       # Runs a set of commands using the runners shell
