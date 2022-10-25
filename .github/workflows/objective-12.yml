@@ -3,7 +3,7 @@
 
 env:
   region:             "us-east5-b"
-  project_id:         "${{ secrets.PROJECT_ID }}"
+  repository:         "https://github.com/Meydan52/worksample-objective-1-2.git"
   cluster_name:       "cluster-1"
 
 
@@ -48,12 +48,27 @@ jobs:
           kubectl get nodes
 
 
-      # # Runs a single command using the runners shell
-      # - name: Run a one-line script
-      #   run: echo Hello, world!
+      # Clone the repository to GCP
+      - name: Clone repository
+        run: git clone ${{ envs.repository }}
 
-      # # Runs a set of commands using the runners shell
-      # - name: Run a multi-line script
-      #   run: |
-      #     echo Add other actions to build,
-      #     echo test, and deploy your project.
+
+      # Runs a set of commands using the runners shell
+      - name: Remove Old Images
+        working-directory: "worksample-objective-1-2"
+        run: ls -l
+
+      # Runs a set of commands using the runners shell
+      - name: Deploy nginx with services
+        run: |
+          kubectl apply -f nginx_svc.yaml --force
+          kubeclt get pods
+          kubectl get svc
+
+      # Runs a set of commands using the runners shell
+      - name: Deploy whoami with services and ingress
+        run: |
+          kubectl apply -f whoami_svc_ingress.yaml --force
+          kubeclt get pods
+          kubectl get svc
+          kubectl get ingress whoami-ingress -w
