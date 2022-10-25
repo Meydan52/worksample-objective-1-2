@@ -1,5 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
+
+env:
+  region:             "us-central5"
+  project_id:         "${{ secrets.PROJECT_ID }}"
+  cluster_name:       "cluster-1"
+
+
 name: CI
 
 # Controls when the workflow will run
@@ -25,12 +32,28 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Authenticate to GCP
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.SERVICE_ACCOUNT }}'
+
+        
+      # Get k8s credentials
+      - name: Get k8s credentials
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          gcloud container clusters get-credentials "${{ env.cluster_name }}" --region  "${{ env.region }}"
+          kubectl get nodes
+
+
+      # # Runs a single command using the runners shell
+      # - name: Run a one-line script
+      #   run: echo Hello, world!
+
+      # # Runs a set of commands using the runners shell
+      # - name: Run a multi-line script
+      #   run: |
+      #     echo Add other actions to build,
+      #     echo test, and deploy your project.
