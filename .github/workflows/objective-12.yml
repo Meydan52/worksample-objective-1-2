@@ -49,12 +49,12 @@ jobs:
 
 
       # Clone the repository to GCP
-      - name: Clone repository
+      - name: Clone repository to GCP
         run: git clone ${{ env.repository }}
 
 
       # Runs a set of commands using the runners shell
-      - name: Remove Old Images
+      - name: Get into work directory
         working-directory: "worksample-objective-1-2"
         run: ls -l
 
@@ -71,4 +71,11 @@ jobs:
           kubectl apply -f whoami_svc_ingress.yaml --force
           kubectl get pods
           kubectl get svc
-          kubectl get ingress whoami-ingress -w
+          kubectl get ingress whoami-ingress 
+
+      # Runs a set of commands using the runners shell
+      - name: Test pods
+        run: |
+          kubectl describe ingress whoami-ingress | grep Address: | awk '{print$2}' > $INGRESS_IP
+          curl http://${INGRESS_IP}/whoami
+          
