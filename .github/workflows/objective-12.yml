@@ -74,7 +74,7 @@ jobs:
           kubectl get ingress whoami-ingress 
       - name: Add bucket name to a new env varriable
         run: |
-          echo "INGRESS_IP=$(kubectl describe ingress whoami-ingress | grep Address: | awk '{print $2}')"" >> $GITHUB_ENV
+          echo "INGRESS_IP=$(kubectl describe ingress whoami-ingress | grep Address: | awk '/print $2/')"" >> $GITHUB_ENV
   
       # Runs a set of commands using the runners shell
       - name: Test pods
