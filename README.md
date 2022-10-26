@@ -1,6 +1,6 @@
 # worksample-objective-1-2
 
-In this repository, there are two yaml files to create Nginx and whoami pods with respective services and ingress declaratively on k8s cluster. There is also a GitHub Action workflow to automate the deployment on a GKE cluser. 
+In this repository, there are two yaml files to create Nginx and whoami pods with respective services and ingress, declaratively on k8s cluster. There is also a GitHub Action workflow to automate the deployment on a GKE cluser. 
 
 ## File Descriptions 
 | **FIle** | **Purpose** |
@@ -9,7 +9,7 @@ In this repository, there are two yaml files to create Nginx and whoami pods wit
 | `whoami_svc_ingress.yaml` | creates an whoami pod with its service to expose ports, and a ingress declaratively|
 | `objective-12.yml` | Workflow file authenticates to GKE cluster on GCP, downloads repository, creates resources and checks if deployed  |
 
-There are two deployment 
+There are two possible deployment 
 1. Automated deployment with Github Actions on to a GKE cluster
 2. Manuel deployment to any k8s cluster
 
