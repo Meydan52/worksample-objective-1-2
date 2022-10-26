@@ -76,6 +76,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Test pods
         run: |
-          kubectl describe ingress whoami-ingress | grep Address: | awk '{ print \$2 }' > $INGRESS_IP
+          kubectl describe ingress whoami-ingress | grep Address: | awk '\{ print \$2 \}' > $INGRESS_IP
           curl http://${INGRESS_IP}/whoami
           
